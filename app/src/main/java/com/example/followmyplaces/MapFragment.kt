@@ -1,10 +1,12 @@
 package com.example.followmyplaces
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager.TAG
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
@@ -26,10 +28,12 @@ class MapFragment:Fragment() {
         val supportMapFragment =
             childFragmentManager.findFragmentById(R.id.mapContainer) as SupportMapFragment
             supportMapFragment.getMapAsync {map ->
-                val coordinates_Lviv = LatLng(49.842957, 24.031111)
+                val coordinates_Lviv = LatLng(50.4546600, 30.5238000)
                 map.addMarker(MarkerOptions().position(coordinates_Lviv).title("Ви тут"))
-                map.setMapStyle(
-                    MapStyleOptions(getResources().getString(R.string.style_json)))
+                val success = map.setMapStyle(MapStyleOptions(resources.getString(R.string.style_json)))
+                if (!success) {
+                    Log.e(TAG, "Style parsing failed.");
+                }
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(coordinates_Lviv, 10F))
             }
         }
