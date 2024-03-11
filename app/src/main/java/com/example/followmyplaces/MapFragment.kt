@@ -12,6 +12,12 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
+import com.google.maps.android.PolyUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class MapFragment:Fragment() {
@@ -25,17 +31,32 @@ class MapFragment:Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val supportMapFragment =
-            childFragmentManager.findFragmentById(R.id.mapContainer) as SupportMapFragment
-            supportMapFragment.getMapAsync {map ->
-                val coordinates_Lviv = LatLng(50.4546600, 30.5238000)
-                map.addMarker(MarkerOptions().position(coordinates_Lviv).title("Ви тут"))
+        val supportMapFragment = childFragmentManager.findFragmentById(R.id.mapContainer) as SupportMapFragment
+        supportMapFragment.getMapAsync {map ->
+                val coordinatesKiyv = LatLng(50.4546600, 30.5238000)
+                map.addMarker(MarkerOptions().position(coordinatesKiyv).title("Ви тут"))
                 val success = map.setMapStyle(MapStyleOptions(resources.getString(R.string.style_json)))
                 if (!success) {
-                    Log.e(TAG, "Style parsing failed.");
+                    Log.e(tag, "Style parsing failed.");
                 }
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(coordinates_Lviv, 10F))
-            }
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(coordinatesKiyv, 10F))
+                CoroutineScope(Dispatchers.IO).launch {
+                    val result =  Client.client.create(ApiInterface::class.java).getSimpleRoute()
+                    if (result.isSuccessful){
+                        withContext(Dispatchers.Main){
+                            result.body()?.let {
+                                if(it.routes.isNotEmpty()) {
+                                    val polylinePoints = it.routes[0].over .points
+                                    val decodedPoints = PolyUtil.decode(polylinePoints)
+                                    map.addPolyline(PolylineOptions().addAll(decodedPoints))
+                                }
+                            }
+                        }
+                    }
+                }
         }
 
+    }
+
 }
+
