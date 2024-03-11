@@ -56,4 +56,6 @@ class MainActivity : AppCompatActivity(), OnAuthLaunch {
             .add(R.id.container, MapFragment())
             .commit()
     }
+
+
 }
