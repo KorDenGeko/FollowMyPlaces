@@ -20,7 +20,7 @@ class MapFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val supportMapFragment =
-           parentFragmentManager.findFragmentById(R.id.mapContainer) as SupportMapFragment
+            parentFragmentManager.findFragmentById(R.id.mapContainer) as SupportMapFragment
             supportMapFragment.getMapAsync {
             }
         }
