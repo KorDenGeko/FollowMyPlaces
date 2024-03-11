@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "640481620245",
+    "project_id": "maps-and-places-7b4c8",
+    "storage_bucket": "maps-and-places-7b4c8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640481620245:android:6d1332de9e8b224d4c791c",
+        "android_client_info": {
+          "package_name": "com.example.followmyplaces"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "640481620245-66q1anirgfkde0ucftfpak1h9ij3h2dd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.followmyplaces",
+            "certificate_hash": "f1f1afb70839180396c28b2ba62d823b668d53f8"
+          }
+        },
+        {
+          "client_id": "640481620245-27607n31ft3mg64uvknc063eflkj6bah.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAr9t84aNKhkHcf0BteRmgmZ0_aSHX4Zc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "640481620245-27607n31ft3mg64uvknc063eflkj6bah.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
