@@ -1,62 +1,26 @@
 <resources>
-  <string name="style_json_dark">
-  [
+<string name="style_json">
+   [
     {
         "featureType": "all",
-        "elementType": "all",
+        "elementType": "geometry.fill",
         "stylers": [
             {
-                "invert_lightness": true
-            },
-            {
-                "saturation": "-9"
-            },
-            {
-                "lightness": "0"
-            },
-            {
-                "visibility": "simplified"
+                "weight": "2.00"
             }
         ]
     },
     {
-        "featureType": "landscape.man_made",
-        "elementType": "all",
+        "featureType": "all",
+        "elementType": "geometry.stroke",
         "stylers": [
             {
-                "weight": "1.00"
+                "color": "#9c9c9c"
             }
         ]
     },
     {
-        "featureType": "road.highway",
-        "elementType": "all",
-        "stylers": [
-            {
-                "weight": "0.49"
-            }
-        ]
-    },
-    {
-        "featureType": "road.highway",
-        "elementType": "labels",
-        "stylers": [
-            {
-                "visibility": "on"
-            },
-            {
-                "weight": "0.01"
-            },
-            {
-                "lightness": "-7"
-            },
-            {
-                "saturation": "-35"
-            }
-        ]
-    },
-    {
-        "featureType": "road.highway",
+        "featureType": "all",
         "elementType": "labels.text",
         "stylers": [
             {
@@ -65,52 +29,29 @@
         ]
     },
     {
-        "featureType": "road.highway",
-        "elementType": "labels.text.stroke",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "road.highway",
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "on"
-            }
-        ]
-    }
-      ]
-  </string>
-
-    <string name="style_json_light">
-        [
-    {
-        "featureType": "administrative",
+        "featureType": "landscape",
         "elementType": "all",
         "stylers": [
             {
-                "visibility": "off"
+                "color": "#f2f2f2"
             }
         ]
     },
     {
         "featureType": "landscape",
-        "elementType": "all",
+        "elementType": "geometry.fill",
         "stylers": [
             {
-                "visibility": "simplified"
-            },
+                "color": "#ffffff"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape.man_made",
+        "elementType": "geometry.fill",
+        "stylers": [
             {
-                "hue": "#0066ff"
-            },
-            {
-                "saturation": 74
-            },
-            {
-                "lightness": 100
+                "color": "#ffffff"
             }
         ]
     },
@@ -119,7 +60,7 @@
         "elementType": "all",
         "stylers": [
             {
-                "visibility": "simplified"
+                "visibility": "off"
             }
         ]
     },
@@ -128,52 +69,55 @@
         "elementType": "all",
         "stylers": [
             {
+                "saturation": -100
+            },
+            {
+                "lightness": 45
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#eeeeee"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "color": "#7b7b7b"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "color": "#ffffff"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "all",
+        "stylers": [
+            {
                 "visibility": "simplified"
             }
         ]
     },
     {
-        "featureType": "road.highway",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "off"
-            },
-            {
-                "weight": 0.6
-            },
-            {
-                "saturation": -85
-            },
-            {
-                "lightness": 61
-            }
-        ]
-    },
-    {
-        "featureType": "road.highway",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
         "featureType": "road.arterial",
-        "elementType": "all",
+        "elementType": "labels.icon",
         "stylers": [
             {
                 "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "road.local",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "on"
             }
         ]
     },
@@ -182,7 +126,7 @@
         "elementType": "all",
         "stylers": [
             {
-                "visibility": "simplified"
+                "visibility": "off"
             }
         ]
     },
@@ -191,16 +135,37 @@
         "elementType": "all",
         "stylers": [
             {
-                "visibility": "simplified"
+                "color": "#46bcec"
             },
             {
-                "color": "#5f94ff"
-            },
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "geometry.fill",
+        "stylers": [
             {
-                "lightness": 26
-            },
+                "color": "#c8d7d4"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "labels.text.fill",
+        "stylers": [
             {
-                "gamma": 5.86
+                "color": "#070707"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "color": "#ffffff"
             }
         ]
     }

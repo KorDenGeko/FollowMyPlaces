@@ -27,11 +27,9 @@ class MapFragment:Fragment() {
             childFragmentManager.findFragmentById(R.id.mapContainer) as SupportMapFragment
             supportMapFragment.getMapAsync {map ->
                 val coordinates_Lviv = LatLng(49.842957, 24.031111)
-                map.addMarker(MarkerOptions().position(coordinates_Lviv).title("My position"))
+                map.addMarker(MarkerOptions().position(coordinates_Lviv).title("Ви тут"))
                 map.setMapStyle(
-                    MapStyleOptions(getResources()
-                    .getString(R.string.style_json_light))
-                );
+                    MapStyleOptions(getResources().getString(R.string.style_json)))
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(coordinates_Lviv, 10F))
             }
         }
