@@ -1,6 +1,6 @@
 <resources>
 <string name="style_json">
-   [
+[
     {
         "featureType": "all",
         "elementType": "geometry.fill",
@@ -170,5 +170,5 @@
         ]
     }
 ]
-    </string>
+</string>
 </resources>
