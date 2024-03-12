@@ -5,15 +5,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+
 
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
 
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.PolyUtil
@@ -44,7 +47,7 @@ class MapFragment:Fragment() {
                 }
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(coordinatesKiyv, 10F))
 
-            CoroutineScope(Dispatchers.IO).launch {
+                CoroutineScope(Dispatchers.IO).launch {
                 val result = Client.client.create(ApiInterface::class.java).getNearbyPlaces()
                 if (result.isSuccessful) {
                     var locations = mutableListOf<Location>()
@@ -60,7 +63,6 @@ class MapFragment:Fragment() {
                             map.addMarker(MarkerOptions().position(coordinates).title(it.name))
                         }
                     }
-
 
                 }
                 withContext(Dispatchers.IO) {

@@ -7,6 +7,6 @@ interface OnAuthLaunch {
     fun showMapFragment()
 }
 
-interface OnAddClickListener{
-    fun onFabClick()
+interface OnMarkerClickListener{
+    fun onMarkerClick(photos: List<Photos>)
 }
