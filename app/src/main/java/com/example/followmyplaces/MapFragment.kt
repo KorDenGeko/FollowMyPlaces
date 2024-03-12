@@ -5,10 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
+
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
@@ -41,6 +43,7 @@ class MapFragment:Fragment() {
                     Log.e(tag, "Style parsing failed.");
                 }
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(coordinatesKiyv, 10F))
+
             CoroutineScope(Dispatchers.IO).launch {
                 val result = Client.client.create(ApiInterface::class.java).getNearbyPlaces()
                 if (result.isSuccessful) {
@@ -57,6 +60,15 @@ class MapFragment:Fragment() {
                             map.addMarker(MarkerOptions().position(coordinates).title(it.name))
                         }
                     }
+                    result.body()?.let {
+                        val detailsFragmentToAdd = PhotoFragment()
+                        detailsFragmentToAdd.setPhotos(it.results[0].photos)
+                        parentFragmentManager.beginTransaction()
+                            .add(R.id.container, detailsFragmentToAdd)
+                            .addToBackStack("details_fragment")
+                            .commit()
+                    }
+
                 }
                 withContext(Dispatchers.IO) {
                     val placeCoordinates = mutableListOf<String>()
