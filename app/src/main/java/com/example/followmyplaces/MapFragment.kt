@@ -27,7 +27,7 @@ import kotlinx.coroutines.withContext
 
 
 class MapFragment:Fragment() {
-
+    val placesMap:MutableMap<LatLng,Results> = mutableMapOf()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,6 +36,7 @@ class MapFragment:Fragment() {
         return inflater.inflate(R.layout.map_fragment_layout, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
         val supportMapFragment = childFragmentManager.findFragmentById(R.id.mapContainer) as SupportMapFragment
         supportMapFragment.getMapAsync {map ->
@@ -55,14 +56,24 @@ class MapFragment:Fragment() {
                         it.results.forEach { result ->
                             val location = Location(result.geometry.location.lat,result.geometry.location.lng,result.name)
                             locations.add(location)
+                            placesMap.put(LatLng(result.geometry.location.lat,result.geometry.location.lng),result)
                         }
+
                     }
                     withContext(Dispatchers.Main) {
                         locations.forEach {
                             val coordinates = LatLng(it.lat, it.lng)
                             map.addMarker(MarkerOptions().position(coordinates).title(it.name))
                         }
+
+                        map.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
+                            override fun onMarkerClick(marker: Marker): Boolean {
+                                Toast.makeText(view.context,placesMap.get(marker.position)?.rating.toString(),Toast.LENGTH_SHORT).show()
+                                return false
+                            }
+                        })
                     }
+
 
                 }
                 withContext(Dispatchers.IO) {
