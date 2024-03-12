@@ -60,14 +60,7 @@ class MapFragment:Fragment() {
                             map.addMarker(MarkerOptions().position(coordinates).title(it.name))
                         }
                     }
-                    result.body()?.let {
-                        val detailsFragmentToAdd = PhotoFragment()
-                        detailsFragmentToAdd.setPhotos(it.results[0].photos)
-                        parentFragmentManager.beginTransaction()
-                            .add(R.id.container, detailsFragmentToAdd)
-                            .addToBackStack("details_fragment")
-                            .commit()
-                    }
+
 
                 }
                 withContext(Dispatchers.IO) {
