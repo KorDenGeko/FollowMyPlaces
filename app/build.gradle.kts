@@ -38,7 +38,8 @@ android {
 
 dependencies {
 
-
+    //ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     //firebase
     implementation("com.google.firebase:firebase-database-ktx")
     implementation (platform("com.google.firebase:firebase-bom:32.3.1"))

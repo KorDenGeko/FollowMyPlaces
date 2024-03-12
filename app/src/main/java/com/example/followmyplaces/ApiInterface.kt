@@ -1,18 +1,8 @@
 package com.example.followmyplaces
 
-
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
-
-object Client {
-    val client = Retrofit.Builder()
-        .baseUrl("https://maps.googleapis.com/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-}
 
 interface ApiInterface {
     @GET("/maps/api/directions/json?&origin=50.4546600,30.5238000&destination=49.553516,25.594767&key=AIzaSyBz-BjEp4sv7-q6C2RqH29xAHr0ConQUjU")
