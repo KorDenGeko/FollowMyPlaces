@@ -9,6 +9,7 @@ import android.widget.Toast
 
 
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -36,79 +37,109 @@ class MapFragment:Fragment() {
         return inflater.inflate(R.layout.map_fragment_layout, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         super.onViewCreated(view, savedInstanceState)
-        val supportMapFragment = childFragmentManager.findFragmentById(R.id.mapContainer) as SupportMapFragment
-        supportMapFragment.getMapAsync {map ->
-                val coordinatesKiyv = LatLng(50.4546600, 30.5238000)
-                map.addMarker(MarkerOptions().position(coordinatesKiyv).title("Ви тут"))
-                val success = map.setMapStyle(MapStyleOptions(resources.getString(R.string.style_json)))
-                if (!success) {
-                    Log.e(tag, "Style parsing failed.");
-                }
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(coordinatesKiyv, 10F))
+        val viewModel = ViewModelProvider(this).get(MapViewModel::class.java)
+        val supportMapFragment =
+            childFragmentManager.findFragmentById(R.id.mapContainer) as SupportMapFragment
+        supportMapFragment.getMapAsync { map ->
+            map.addMarker(MarkerOptions().position(CoordinatesKyiv.latLng).title("Ви тут"))
+            viewModel.setMapStyle(view.context, map)
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(CoordinatesKyiv.latLng, 10F))
+            viewModel.getNearbyPlaces()
+            viewModel.uiState.observe(this.viewLifecycleOwner) {
+                when (it) {
+                    MapViewModel.UIState.Empty -> Unit
+                    is MapViewModel.UIState.Error -> Toast.makeText(
+                        view.context,
+                        "${it.description}",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
-                CoroutineScope(Dispatchers.IO).launch {
-                val result = Client.client.create(ApiInterface::class.java).getNearbyPlaces()
-                if (result.isSuccessful) {
-                    var locations = mutableListOf<Location>()
-                    result.body()?.let {
-                        it.results.forEach { result ->
-                            val location = Location(result.geometry.location.lat,result.geometry.location.lng,result.name)
-                            locations.add(location)
-                            placesMap.put(LatLng(result.geometry.location.lat,result.geometry.location.lng),result)
-                        }
+                    MapViewModel.UIState.Processing -> Toast.makeText(
+                        view.context,
+                        "Завантажуємо данні...",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
-                    }
-                    withContext(Dispatchers.Main) {
-                        locations.forEach {
-                            val coordinates = LatLng(it.lat, it.lng)
-                            map.addMarker(MarkerOptions().position(coordinates).title(it.name))
-                        }
+                    is MapViewModel.UIState.Result -> {
+                        if (it.placesResponse.results.isNotEmpty()) {
+                            var locations = mutableListOf<Location>()
+                            it.placesResponse.results.let {
+                                it.forEach { result ->
+                                    val location = Location(
+                                        result.geometry.location.lat,
+                                        result.geometry.location.lng,
+                                        result.name
+                                    )
+                                    locations.add(location)
+                                    placesMap.put(
+                                        LatLng(
+                                            result.geometry.location.lat,
+                                            result.geometry.location.lng
+                                        ), result
+                                    )
+                                    locations.forEach {
+                                        val coordinates = LatLng(it.lat, it.lng)
+                                        map.addMarker(
+                                            MarkerOptions().position(coordinates).title(it.name)
+                                        )
+                                        map.setOnMarkerClickListener(object :
+                                            GoogleMap.OnMarkerClickListener {
+                                            override fun onMarkerClick(marker: Marker): Boolean {
+                                                showDescription(placesMap.get(marker.position))
+                                                return false
+                                            }
+                                        })
+                                    }
 
-                        map.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
-                            override fun onMarkerClick(marker: Marker): Boolean {
-                                Toast.makeText(view.context,placesMap.get(marker.position)?.rating.toString(),Toast.LENGTH_SHORT).show()
-                                return false
+
+                                }
                             }
-                        })
-                    }
 
-
-                }
-                withContext(Dispatchers.IO) {
-                    val placeCoordinates = mutableListOf<String>()
-                    result.body()?.let { result ->
-                        result.results.forEach {
-                            placeCoordinates.add("${it.geometry.location.lat},${it.geometry.location.lng}")
-                        }
-                    }
-                    val waypointCoordinates = placeCoordinates.drop(0).take(10)
-                    val waypointCoordinatesString =
-                        waypointCoordinates.joinToString(separator = "|")
-                    val routeResult = Client.client.create(ApiInterface::class.java)
-                        .getComplexRoute(
-                            originId = placeCoordinates[0],
-                            destinationId = placeCoordinates.last(),
-                            waypoints = waypointCoordinatesString
-                        )
-                    if (routeResult.isSuccessful) {
-                        withContext(Dispatchers.Main) {
-                            routeResult.body()?.let {
-                                if(it.routes.isNotEmpty()) {
-                                    val polylinePoints = it.routes[0].overviewPolyline.points
-                                    val decodedPath = PolyUtil.decode(polylinePoints)
-                                    map.addPolyline(PolylineOptions().addAll(decodedPath))
-
+                            val placeCoordinates = mutableListOf<String>()
+                            it.placesResponse.results.let { result ->
+                                result.forEach {
+                                    placeCoordinates.add("${it.geometry.location.lat},${it.geometry.location.lng}")
+                                    val waypointCoordinates = placeCoordinates.drop(0).take(10)
+                                    val waypointCoordinatesString =
+                                        waypointCoordinates.joinToString(separator = "|")
+                                    viewModel.getComplexRoute(
+                                        originId = placeCoordinates[0],
+                                        destinationId = placeCoordinates.last(),
+                                        waypoints = waypointCoordinatesString
+                                    )
                                 }
                             }
                         }
                     }
+
+                    is MapViewModel.UIState.ResultDirections -> {
+                        if (it.directionsResponse.routes.isNotEmpty()) {
+                            val polylinePoints =
+                                it.directionsResponse.routes[0].overviewPolyline.points
+                            val decodedPath = PolyUtil.decode(polylinePoints)
+                            map.addPolyline(PolylineOptions().addAll(decodedPath))
+                        }
+                    }
                 }
+
             }
         }
 
+
+
+    }
+
+    fun showDescription(marker: Results?) {
+        val detailsFragmentToAdd = PhotoFragment()
+        detailsFragmentToAdd.setMarker(marker!!)
+        parentFragmentManager.beginTransaction()
+            .add(R.id.container, detailsFragmentToAdd)
+            .addToBackStack("details_fragment")
+            .commit()
     }
 
 }
+
+
 

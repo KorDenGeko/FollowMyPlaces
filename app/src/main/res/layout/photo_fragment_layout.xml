@@ -1,20 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/details"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="400dp"
+        android:layout_gravity="center"
         android:layout_margin="8dp"
-        android:scrollbars="horizontal"
-        />
+        app:cardBackgroundColor="#C5E1A5"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="16dp">
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/detailsImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+
+
+            android:src="@android:drawable/btn_star" />
+
+        <TextView
+            android:id="@+id/detailsName"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:layout_margin="16dp"
+            android:text="SuperHero"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Оцінка:"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="68dp"
+            android:layout_marginEnd="16dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/detailsRating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="68dp"
+            android:layout_marginEnd="16dp"
+            android:text="5.0" />
+
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</FrameLayout>

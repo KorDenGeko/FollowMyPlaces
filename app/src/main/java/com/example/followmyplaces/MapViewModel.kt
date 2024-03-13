@@ -1,9 +1,12 @@
 package com.example.followmyplaces
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.SupportMapFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -45,11 +48,11 @@ class MapViewModel:ViewModel() {
         }
     }
 
-    fun getComplexRoute(originId: String,destinationId: String,waypoints: String, key: String) {
+    fun getComplexRoute(originId: String,destinationId: String,waypoints: String) {
         _uiState.value = UIState.Processing
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val response = repo.getComplexRoute(originId,destinationId,waypoints, key)
+                val response = repo.getComplexRoute(originId,destinationId,waypoints)
                 if (response.isSuccessful && response.body() != null) {
                     withContext(Dispatchers.Main) {
                         _uiState.postValue(
@@ -61,6 +64,13 @@ class MapViewModel:ViewModel() {
         }
     }
 
+
+    fun setMapStyle(context: Context, map: GoogleMap){
+        repo.setMapStyle(context,map)
+    }
+
+
+
     sealed class UIState {
         object Empty : UIState()
         object Processing : UIState()
@@ -68,4 +78,5 @@ class MapViewModel:ViewModel() {
         class Result(val placesResponse:PlacesResponse) : UIState()
         class Error(val description: String) : UIState()
     }
+
 }
