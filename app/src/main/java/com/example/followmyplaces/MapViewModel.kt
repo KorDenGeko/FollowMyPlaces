@@ -69,6 +69,9 @@ class MapViewModel:ViewModel() {
         repo.setMapStyle(context,map)
     }
 
+    fun getRequest(reference:String?): String {
+        return repo.getRequest(reference)
+    }
 
 
     sealed class UIState {

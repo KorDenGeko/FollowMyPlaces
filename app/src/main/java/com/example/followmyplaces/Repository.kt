@@ -37,4 +37,8 @@ class Repository(private val apiClient:ApiClient) {
 
     }
 
+    fun getRequest(reference:String?) = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photo_reference=$reference&key=AIzaSyBz-BjEp4sv7-q6C2RqH29xAHr0ConQUjU"
+
+
+
 }

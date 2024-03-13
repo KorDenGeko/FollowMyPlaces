@@ -10,7 +10,7 @@
         android:layout_height="400dp"
         android:layout_gravity="center"
         android:layout_margin="8dp"
-        app:cardBackgroundColor="#C5E1A5"
+        app:cardBackgroundColor="#ECEFF1"
         app:cardCornerRadius="16dp"
         app:cardElevation="16dp">
 
@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="47dp"
             android:layout_margin="16dp"
-            android:text="SuperHero"
+            android:text="Name of place"
             android:textSize="18sp" />
 
         <TextView

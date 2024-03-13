@@ -44,7 +44,7 @@ class MapFragment:Fragment() {
         supportMapFragment.getMapAsync { map ->
             map.addMarker(MarkerOptions().position(CoordinatesKyiv.latLng).title("Ви тут"))
             viewModel.setMapStyle(view.context, map)
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(CoordinatesKyiv.latLng, 10F))
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(CoordinatesKyiv.latLng, 12F))
             viewModel.getNearbyPlaces()
             viewModel.uiState.observe(this.viewLifecycleOwner) {
                 when (it) {
