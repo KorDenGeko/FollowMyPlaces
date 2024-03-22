@@ -14,7 +14,7 @@ class Repository(private val apiClient:ApiClient) {
     lateinit var mMap:GoogleMap
     suspend fun getNearbyPlaces(location: LatLng, radius:String, placeType:String): Response<PlacesResponse>{
         val apiInterface = apiClient.client.create(ApiInterface::class.java)
-        return apiInterface.getNearbyPlaces(location,radius,placeType)
+        return apiInterface.getNearbyPlaces("${location.latitude},${location.longitude}",radius,placeType)
     }
 
     suspend fun getSimpleRoute(): Response<DirectionsResponse>{

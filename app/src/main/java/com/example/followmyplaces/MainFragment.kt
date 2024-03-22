@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
@@ -55,8 +56,10 @@ class MainFragment:DialogFragment() {
 
         val button:Button = view.findViewById(R.id.mapButton)
         button.setOnClickListener {
+            Coordinates.setPlaceType(spinner.selectedItem as Poi)
             parentFragmentManager.beginTransaction()
                 .add(R.id.container, MapFragment())
+                .addToBackStack("MapFragment")
                 .commit()
         }
 

@@ -45,7 +45,7 @@ class MapFragment:Fragment() {
             map.addMarker(MarkerOptions().position(Coordinates.getLatLng()).title("Ви тут"))
             viewModel.setMapStyle(view.context, map)
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(Coordinates.getLatLng(), 12F))
-            viewModel.getNearbyPlaces(Coordinates.getLatLng(),"2000", Coordinates.getPlaceType())
+            viewModel.getNearbyPlaces(Coordinates.getLatLng(),"2000", Coordinates.getPlaceType().nameApi)
             viewModel.uiState.observe(this.viewLifecycleOwner) {
                 when (it) {
                     MapViewModel.UIState.Empty -> Unit

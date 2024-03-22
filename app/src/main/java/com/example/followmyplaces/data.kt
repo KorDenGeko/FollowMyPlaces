@@ -16,14 +16,14 @@ data class Photos (@SerializedName("photo_reference") val photoReference:String?
 data class Poi(val id:Int,val name: String, val nameApi:String)
 object Coordinates{
     private var latLng = LatLng(50.4546600, 30.5238000)
-    private var placeType:String = "tourist_attractions"
+    private var placeType:Poi = Poi(0,"","")
     fun setLatLng(placesLatLng: LatLng){
         latLng = placesLatLng
     }
 
     fun getLatLng() = latLng
 
-    fun setPlaceType(selectedType:String){
+    fun setPlaceType(selectedType:Poi){
         placeType = selectedType
     }
 
