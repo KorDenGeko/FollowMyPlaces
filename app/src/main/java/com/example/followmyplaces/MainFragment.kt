@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.ArrayAdapter
+import android.widget.AdapterView
 import android.widget.Button
+import android.widget.ListView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -18,6 +18,7 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 
 class MainFragment:DialogFragment() {
+    private var onItemClick: (Style) -> Unit = {}
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,7 +41,7 @@ class MainFragment:DialogFragment() {
 
         val autoCompleteSupFrag = childFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
         autoCompleteSupFrag.setPlaceFields(listOf(Place.Field.LAT_LNG,Place.Field.NAME))
-
+        autoCompleteSupFrag.setText("Киев")
         autoCompleteSupFrag.setOnPlaceSelectedListener(object: PlaceSelectionListener{
             override fun onError(p0: Status) {
                 Toast.makeText(view.context, "Щось пішло не так.Спробуйте ще", Toast.LENGTH_SHORT).show()
@@ -63,6 +64,24 @@ class MainFragment:DialogFragment() {
                 .commit()
         }
 
+        val styleListView:ListView = view.findViewById(R.id.stylesList)
+        val styleAdapter = StyleListAdapter(view.context, MapStyles.styleList)
+        styleListView.adapter = styleAdapter
+        styleListView.setOnItemClickListener(object : AdapterView.OnItemClickListener {
+            override fun onItemClick(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                mapStyle = parent?.getItemAtPosition(position) as Style
+            }
+
+        })
+
+
     }
+
+
 
 }

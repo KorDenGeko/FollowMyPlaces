@@ -74,15 +74,29 @@
             app:layout_constraintTop_toBottomOf="@id/searchText"
             />
 
+    <TextView
+        android:id="@+id/mapStyleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:gravity="left"
+        android:text="Який сьогодны настрій?"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+
     <ListView
         android:id="@+id/stylesList"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinner"
+        android:background="@color/common_google_signin_btn_text_dark_default"
+        android:layout_height="400dp"
         android:layout_margin="8dp"
-        android:orientation="horizontal"/>
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mapStyleText" />
 
     <Button
         android:id="@+id/mapButton"

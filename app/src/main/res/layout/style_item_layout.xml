@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="16dp"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/common_google_signin_btn_text_dark_default"
+        android:elevation="8dp">
+
+        <ImageView
+            android:id="@+id/mapStyleImage"
+            android:layout_width="100dp"
+            android:src="@drawable/technology"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:layout_gravity="start"/>
+
+        <TextView
+            android:id="@+id/mapStyleText"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:text="style name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

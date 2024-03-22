@@ -31,7 +31,15 @@ class Repository(private val apiClient:ApiClient) {
 
 
     fun setMapStyle(context: Context, map: GoogleMap){
-        val success = map.setMapStyle(MapStyleOptions( context.resources.getString(R.string.style_json)))
+        var mapStringId = 0
+        when(mapStyle.nameString){
+            "night" -> mapStringId = R.string.night
+            "retro_style" -> mapStringId = R.string.retro_style
+            "silver" -> mapStringId = R.string.silver
+            "ultra_light" -> mapStringId = R.string.ultra_light
+            "dark" -> mapStringId = R.string.dark
+        }
+        val success = map.setMapStyle(MapStyleOptions( context.resources.getString(mapStringId)))
         if (!success) {
             Log.e(context.toString(), "Style parsing failed.");
         }

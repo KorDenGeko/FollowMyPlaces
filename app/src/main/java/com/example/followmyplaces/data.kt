@@ -3,6 +3,7 @@ package com.example.followmyplaces
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.annotations.SerializedName
 
+var mapStyle:Style = Style("","","")
 data class DirectionsResponse(val routes:List<Routes>)
 data class Routes(@SerializedName("overview_polyline") val overviewPolyline:OverviewPolyline)
 data class OverviewPolyline(val points:String)
@@ -14,6 +15,8 @@ data class Location(val lat:Double, val lng:Double, val name:String)
 data class Photos (@SerializedName("photo_reference") val photoReference:String? = null)
 
 data class Poi(val id:Int,val name: String, val nameApi:String)
+
+data class Style(val name:String,val photoName:String, val nameString:String)
 object Coordinates{
     private var latLng = LatLng(50.4546600, 30.5238000)
     private var placeType:Poi = Poi(0,"","")
@@ -39,5 +42,15 @@ object PoiTypes{
         Poi(5,"Парки розваг","amusement_park"),
         Poi(6,"Торгівельні центри","shopping_mall"),
         Poi(7,"Станції метро","subway_station")
+    )
+}
+
+object MapStyles{
+    val styleList = listOf(
+        Style("Нічна", "night", "night"),
+        Style("Ретро", "retro", "retro_style"),
+        Style("Срібло", "silver", "silver"),
+        Style("Світла", "ultra_light", "ultra_light"),
+        Style("Темна", "dark", "dark")
     )
 }
