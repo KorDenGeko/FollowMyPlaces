@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), OnAuthLaunch {
                 auth.signInWithCredential(credential)
                     .addOnCompleteListener {
                         if (it.isSuccessful){
-                            showMapFragment()
+                            showMainFragment()
                         } else {
                             Toast.makeText(this, "Authentication failed", Toast.LENGTH_SHORT).show()
                         }
@@ -51,9 +51,9 @@ class MainActivity : AppCompatActivity(), OnAuthLaunch {
         }
     }
 
-    override fun showMapFragment() {
+    override fun showMainFragment() {
         supportFragmentManager.beginTransaction()
-            .add(R.id.container, MapFragment())
+            .add(R.id.container, MainFragment())
             .commit()
     }
 

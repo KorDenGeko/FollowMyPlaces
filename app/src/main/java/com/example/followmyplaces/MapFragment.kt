@@ -42,10 +42,10 @@ class MapFragment:Fragment() {
         val supportMapFragment =
             childFragmentManager.findFragmentById(R.id.mapContainer) as SupportMapFragment
         supportMapFragment.getMapAsync { map ->
-            map.addMarker(MarkerOptions().position(CoordinatesKyiv.latLng).title("Ви тут"))
+            map.addMarker(MarkerOptions().position(Coordinates.getLatLng()).title("Ви тут"))
             viewModel.setMapStyle(view.context, map)
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(CoordinatesKyiv.latLng, 12F))
-            viewModel.getNearbyPlaces()
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(Coordinates.getLatLng(), 12F))
+            viewModel.getNearbyPlaces(Coordinates.getLatLng(),"2000", Coordinates.getPlaceType())
             viewModel.uiState.observe(this.viewLifecycleOwner) {
                 when (it) {
                     MapViewModel.UIState.Empty -> Unit

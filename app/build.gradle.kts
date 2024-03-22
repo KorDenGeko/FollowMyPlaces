@@ -49,6 +49,7 @@ dependencies {
     implementation ("com.google.android.gms:play-services-maps:18.2.0")
     implementation ("com.google.maps.android:android-maps-utils:3.5.3")
     implementation("com.google.android.gms:play-services-auth:21.0.0")
+    implementation("com.google.android.libraries.places:places:3.4.0")
     //Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.okhttp3:okhttp:4.11.0")

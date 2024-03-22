@@ -34,7 +34,7 @@ class SplashFragment: Fragment() {
         if(account == null) {
             showSignInButton()
         } else {
-            activity.showMapFragment()
+            activity.showMainFragment()
             animatorSet.cancel()
         }
         signInButton?.setOnClickListener {

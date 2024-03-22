@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -32,11 +33,11 @@ class MapViewModel:ViewModel() {
     }
 
 
-    fun getNearbyPlaces() {
+    fun getNearbyPlaces(location:LatLng,radius:String,placeType:String) {
         _uiState.value = UIState.Processing
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val response = repo.getNearbyPlaces()
+                val response = repo.getNearbyPlaces(location,radius,placeType)
                 if (response.isSuccessful && response.body() != null) {
                     withContext(Dispatchers.Main) {
                         _uiState.postValue(

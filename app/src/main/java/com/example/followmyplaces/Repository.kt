@@ -6,14 +6,15 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.internal.IGoogleMapDelegate
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import retrofit2.Response
 
 class Repository(private val apiClient:ApiClient) {
     lateinit var mMap:GoogleMap
-    suspend fun getNearbyPlaces(): Response<PlacesResponse>{
+    suspend fun getNearbyPlaces(location: LatLng, radius:String, placeType:String): Response<PlacesResponse>{
         val apiInterface = apiClient.client.create(ApiInterface::class.java)
-        return apiInterface.getNearbyPlaces()
+        return apiInterface.getNearbyPlaces(location,radius,placeType)
     }
 
     suspend fun getSimpleRoute(): Response<DirectionsResponse>{
