@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:gravity="left"
-        android:text="Який сьогодны настрій?"
+        android:text="Який сьогодні настрій?"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="parent"
